@@ -35,6 +35,7 @@ macro( XSD_SCHEMA SOURCES HEADERS OUTPUT INPUT )
             --type-naming ucc
             --function-naming lcc
             --generate-serialization
+            --std c++11
             --output-dir ${OUTPUT}
             ${ARGN}
             ${INPUT}
