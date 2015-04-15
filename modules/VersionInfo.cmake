@@ -1,6 +1,6 @@
 set( MAJOR_VER 3 )
-set( MINOR_VER 10 )
-set( RELEASE_VER 3 )
+set( MINOR_VER 11 )
+set( RELEASE_VER 0 )
 set( BUILD_VER 0 )
 if( $ENV{BUILD_NUMBER} )
 	set( BUILD_VER $ENV{BUILD_NUMBER} )
