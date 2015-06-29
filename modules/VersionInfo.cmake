@@ -28,7 +28,7 @@ add_definitions(
 	-DORG=\"RIA\"
 )
 
-set( MACOSX_BUNDLE_COPYRIGHT "(C) 2010-2014 Estonian Information System's Authority" )
+set( MACOSX_BUNDLE_COPYRIGHT "(C) 2010-2015 Estonian Information System Authority" )
 set( MACOSX_BUNDLE_SHORT_VERSION_STRING ${MAJOR_VER}.${MINOR_VER}.${RELEASE_VER} )
 set( MACOSX_BUNDLE_BUNDLE_VERSION ${BUILD_VER} )
 set( MACOSX_BUNDLE_ICON_FILE Icon.icns )
@@ -56,6 +56,14 @@ macro( add_manifest TARGET )
 	if( WIN32 )
 		add_custom_command(TARGET ${TARGET} POST_BUILD
 			COMMAND mt -manifest "${CMAKE_MODULE_PATH}/win81.exe.manifest" -outputresource:"$<TARGET_FILE:${TARGET}>")
+	endif()
+endmacro()
+
+macro( SET_EX NAME VAR DEF )
+	if( "${VAR}" STREQUAL "" )
+		set( ${NAME} ${DEF} ${ARGN} )
+	else()
+		set( ${NAME} ${VAR} ${ARGN} )
 	endif()
 endmacro()
 
