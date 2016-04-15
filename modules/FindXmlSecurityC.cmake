@@ -11,11 +11,11 @@ IF (XMLSECURITYC_INCLUDE_DIR)
   SET(XMLSECURITYC_FIND_QUIETLY TRUE)
 ENDIF (XMLSECURITYC_INCLUDE_DIR)
 
-#FIND_PATH(XALANC_INCLUDE_DIR xalanc/XalanTransformer/XalanTransformer.hpp HINTS /Library/EstonianIDCard/include)
+FIND_PATH(XALANC_INCLUDE_DIR xalanc/XalanTransformer/XalanTransformer.hpp HINTS /Library/EstonianIDCard/include)
 FIND_PATH(XMLSECURITYC_INCLUDE_DIR xsec/utils/XSECPlatformUtils.hpp HINTS /Library/EstonianIDCard/include)
 
-#FIND_LIBRARY(XALANC_LIBRARY NAMES xalan-c xalan-C_1 HINTS /Library/EstonianIDCard/lib)
-#FIND_LIBRARY(XALANMSG_LIBRARY NAMES xalanMsg XalanMessages_1 HINTS /Library/EstonianIDCard/lib)
+FIND_LIBRARY(XALANC_LIBRARY NAMES xalan-c xalan-C_1 HINTS /Library/EstonianIDCard/lib)
+FIND_LIBRARY(XALANMSG_LIBRARY NAMES xalanMsg XalanMessages_1 HINTS /Library/EstonianIDCard/lib)
 FIND_LIBRARY(XMLSECURITYC_LIBRARY NAMES xml-security-c xsec_1 HINTS /Library/EstonianIDCard/lib)
 
 # Handle the QUIETLY and REQUIRED arguments and set XMLSECURITYC_FOUND to
