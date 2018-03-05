@@ -17,10 +17,9 @@ add_definitions(
 	-DBUILD_VER=${BUILD_VER}
 	-DVER_SUFFIX=\"$ENV{VER_SUFFIX}\"
 	-DBUILD_DATE=\"${BUILD_DATE}\"
-	-DORG=\"RIA\"
 )
 
-set( MACOSX_BUNDLE_COPYRIGHT "(C) 2010-2017 Estonian Information System Authority" )
+set( MACOSX_BUNDLE_COPYRIGHT "(C) 2010-2018 Estonian Information System Authority" )
 set( MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION} )
 set( MACOSX_BUNDLE_BUNDLE_VERSION ${BUILD_VER} )
 set( MACOSX_BUNDLE_ICON_FILE Icon.icns )
