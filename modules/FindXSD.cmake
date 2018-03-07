@@ -42,7 +42,6 @@ macro( XSD_SCHEMA SOURCES HEADERS OUTPUT INPUT )
             --function-naming lcc
             --generate-serialization
             --suppress-assignment
-            --location-regex '%http://.+/\(.+\)%$$1%'
             --std c++11
             --output-dir ${OUTPUT}
             ${ARGN}
