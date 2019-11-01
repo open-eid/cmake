@@ -32,5 +32,7 @@
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${CMAKE_OSX_DEPLOYMENT_TARGET}</string>
+	<key>NSRequiresAquaSystemAppearance</key>
+	<string>true</string>
 </dict>
 </plist>
