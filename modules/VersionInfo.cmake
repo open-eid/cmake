@@ -55,13 +55,6 @@ macro( SET_APP_NAME OUTPUT NAME )
 	endif( APPLE )
 endmacro()
 
-macro( add_manifest TARGET )
-	if( WIN32 )
-		add_custom_command(TARGET ${TARGET} POST_BUILD
-			COMMAND mt -nologo -manifest "${CMAKE_MODULE_PATH}/win81.exe.manifest" -outputresource:"$<TARGET_FILE:${TARGET}>")
-	endif()
-endmacro()
-
 macro( SET_ENV NAME DEF )
 	if( DEFINED ENV{${NAME}} )
 		set( ${NAME} $ENV{${NAME}} ${ARGN} )
