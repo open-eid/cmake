@@ -5,9 +5,6 @@ elseif(PROJECT_VERSION_TWEAK)
 else()
 	set( BUILD_VER 0 )
 endif()
-if(NOT BUILD_DATE)
-	string(TIMESTAMP BUILD_DATE "%d.%m.%Y")
-endif()
 
 set( VERSION ${PROJECT_VERSION}.${BUILD_VER} )
 add_definitions(
@@ -15,8 +12,6 @@ add_definitions(
 	-DMINOR_VER=${PROJECT_VERSION_MINOR}
 	-DRELEASE_VER=${PROJECT_VERSION_PATCH}
 	-DBUILD_VER=${BUILD_VER}
-	-DVER_SUFFIX=\"$ENV{VER_SUFFIX}\"
-	-DBUILD_DATE=\"${BUILD_DATE}\"
 )
 
 set(CMAKE_C_VISIBILITY_PRESET hidden) 
