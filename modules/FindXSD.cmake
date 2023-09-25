@@ -3,15 +3,8 @@
 #
 #  XSD_INCLUDE_DIR - Where to find xsd include sub-directory.
 #  XSD_EXECUTABLE  - XSD compiler.
-#  XSD_FOUND       - True if XSD found.
 
-
-IF (XSD_INCLUDE_DIR)
-  # Already in cache, be silent.
-  SET(XSD_FIND_QUIETLY TRUE)
-ENDIF (XSD_INCLUDE_DIR)
-
-FIND_PATH(XSD_INCLUDE_DIR xsd/cxx/parser/elements.hxx)
+FIND_PATH(XSD_INCLUDE_DIR xsd/cxx/config.hxx PATH_SUFFIXES libxsd)
 FIND_PROGRAM(XSD_EXECUTABLE NAMES xsdcxx xsdgen xsd)
 if(XSD_EXECUTABLE)
   execute_process (COMMAND ${XSD_EXECUTABLE} "--version" OUTPUT_VARIABLE EXEC_OUT)
@@ -22,16 +15,12 @@ if(XSD_EXECUTABLE)
   set(XSD_VERSION_COUNT 3)
 endif()
 
-# Handle the QUIETLY and REQUIRED arguments and set XSD_FOUND to
-# TRUE if all listed variables are TRUE.
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(XSD REQUIRED_VARS XSD_EXECUTABLE XSD_INCLUDE_DIR VERSION_VAR XSD_VERSION)
-
 MARK_AS_ADVANCED( XSD_EXECUTABLE XSD_INCLUDE_DIR )
 
 macro( XSD_SCHEMA SOURCES HEADERS OUTPUT INPUT )
-    get_filename_component( NAME "${INPUT}" NAME )
-    get_filename_component( BASE "${NAME}" NAME_WE )
+    get_filename_component( BASE "${INPUT}" NAME_WE )
     list( APPEND ${SOURCES} ${OUTPUT}/${BASE}.cxx )
     list( APPEND ${HEADERS} ${OUTPUT}/${BASE}.hxx )
     add_custom_command(
