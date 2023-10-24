@@ -1,28 +1,26 @@
 # - Find LibDigiDocpp
 # Find the native LibDigiDocpp includes and library
 #
-#  LIBDIGIDOCPP_INCLUDE_DIR - where to find winscard.h, wintypes.h, etc.
+#  LIBDIGIDOCPP_INCLUDE_DIR - where to find Container.h, etc.
 #  LIBDIGIDOCPP_LIBRARIES   - List of libraries when using LibDigiDocpp.
 #  LIBDIGIDOCPP_FOUND       - True if LibDigiDocpp found.
 
 
-IF (LIBDIGIDOCPP_INCLUDE_DIR)
-  # Already in cache, be silent
-  SET(LIBDIGIDOCPP_FIND_QUIETLY TRUE)
-ENDIF (LIBDIGIDOCPP_INCLUDE_DIR)
+find_path(LIBDIGIDOCPP_INCLUDE_DIR digidocpp/Container.h)
+if(NOT LIBDIGIDOCPP_LIBRARY)
+	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+		set(ARCH x64)
+	else()
+		set(ARCH x86)
+	endif()
+	find_library(LIBDIGIDOCPP_LIBRARY_RELEASE NAMES digidocpp PATH_SUFFIXES ${ARCH})
+	find_library(LIBDIGIDOCPP_LIBRARY_DEBUG NAMES digidocppd PATH_SUFFIXES ${ARCH})
+	include(SelectLibraryConfigurations)
+	select_library_configurations(LIBDIGIDOCPP)
+endif()
 
-FIND_PATH(LIBDIGIDOCPP_INCLUDE_DIR digidocpp/Container.h)
-FIND_LIBRARY(LIBDIGIDOCPP_LIBRARY NAMES digidocpp)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(LibDigiDocpp
+	DEFAULT_MSG LIBDIGIDOCPP_LIBRARY LIBDIGIDOCPP_INCLUDE_DIR)
 
-# handle the QUIETLY and REQUIRED arguments and set LIBDIGIDOCPP_FOUND to TRUE if 
-# all listed variables are TRUE
-INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibDigiDocpp DEFAULT_MSG LIBDIGIDOCPP_LIBRARY LIBDIGIDOCPP_INCLUDE_DIR)
-
-IF(LIBDIGIDOCPP_FOUND)
-  SET( LIBDIGIDOCPP_LIBRARIES ${LIBDIGIDOCPP_LIBRARY} )
-ELSE(LIBDIGIDOCPP_FOUND)
-  SET( LIBDIGIDOCPP_LIBRARIES )
-ENDIF(LIBDIGIDOCPP_FOUND)
-
-MARK_AS_ADVANCED(LIBDIGIDOCPP_LIBRARY LIBDIGIDOCPP_INCLUDE_DIR)
+mark_as_advanced(LIBDIGIDOCPP_LIBRARY LIBDIGIDOCPP_INCLUDE_DIR)
