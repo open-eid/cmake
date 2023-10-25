@@ -19,10 +19,10 @@ find_library(XmlSecurityC_LIBRARY_RELEASE NAMES xml-security-c xsec_1 xsec_2 DOC
 find_library(XmlSecurityC_LIBRARY_DEBUG NAMES xml-security-c xsec_1D xsec_2D DOC "Xml-Security-C++ libraries (debug)")
 include(SelectLibraryConfigurations)
 select_library_configurations(XmlSecurityC)
-mark_as_advanced(XmlSecurityC_INCLUDE_DIR XmlSecurityC_LIBRARY_RELEASE XmlSecurityC_LIBRARY_DEBUG)
+mark_as_advanced(XmlSecurityC_INCLUDE_DIR XmlSecurityC_LIBRARY)
 
 include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(XmlSecurityC DEFAULT_MSG XmlSecurityC_LIBRARY XmlSecurityC_INCLUDE_DIR XercesC_FOUND OPENSSL_FOUND)
+find_package_handle_standard_args(XmlSecurityC DEFAULT_MSG XmlSecurityC_LIBRARY XmlSecurityC_INCLUDE_DIR XercesC_FOUND OPENSSL_FOUND)
 
 if(XmlSecurityC_FOUND)
   set(XmlSecurityC_INCLUDE_DIRS ${XmlSecurityC_INCLUDE_DIR} ${XercesC_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR})
@@ -35,13 +35,15 @@ if(XmlSecurityC_FOUND)
     list(INSERT XmlSecurityC_DEPS 0 XalanC::XalanC)
 
     find_library(XalanMSG_LIBRARY NAMES xalanMsg XalanMessages_1)
-    list(INSERT XmlSecurityC_LIBRARIES 2 ${XalanMSG_LIBRARY})
-    if(NOT TARGET XalanMSG::XalanMSG AND NOT ${BUILD_SHARED_LIBS})
-      add_library(XalanMSG::XalanMSG UNKNOWN IMPORTED)
-      set_target_properties(XalanMSG::XalanMSG PROPERTIES
-        IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
-        IMPORTED_LOCATION "${XalanMSG_LIBRARY}")
-      list(INSERT XmlSecurityC_DEPS 1 XalanMSG::XalanMSG)
+    if(EXISTS "${XalanMSG_LIBRARY}")
+        list(INSERT XmlSecurityC_LIBRARIES 2 ${XalanMSG_LIBRARY})
+        if(NOT TARGET XalanMSG::XalanMSG AND ${XalanMSG_LIBRARY} MATCHES ".*a")
+          add_library(XalanMSG::XalanMSG UNKNOWN IMPORTED)
+          set_target_properties(XalanMSG::XalanMSG PROPERTIES
+            IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
+            IMPORTED_LOCATION "${XalanMSG_LIBRARY}")
+          list(INSERT XmlSecurityC_DEPS 1 XalanMSG::XalanMSG)
+        endif()
     endif()
   endif()
 
