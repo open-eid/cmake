@@ -37,7 +37,7 @@ if(XmlSecurityC_FOUND)
     find_library(XalanMSG_LIBRARY NAMES xalanMsg XalanMessages_1)
     if(EXISTS "${XalanMSG_LIBRARY}")
         list(INSERT XmlSecurityC_LIBRARIES 2 ${XalanMSG_LIBRARY})
-        if(NOT TARGET XalanMSG::XalanMSG AND ${XalanMSG_LIBRARY} MATCHES ".*a")
+        if(NOT TARGET XalanMSG::XalanMSG AND ${XalanMSG_LIBRARY} MATCHES "^.*\.a$")
           add_library(XalanMSG::XalanMSG UNKNOWN IMPORTED)
           set_target_properties(XalanMSG::XalanMSG PROPERTIES
             IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
