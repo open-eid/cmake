@@ -17,9 +17,7 @@ Patch dialog sequence:
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <?foreach WIXUIARCH in X86;X64;A64 ?>
     <Fragment>
-        <UI Id="WixUI_Minimal2_$(WIXUIARCH)">
-            <Publish Dialog="WelcomeDlg2" Control="Print" Event="DoAction" Value="WixUIPrintEula_$(WIXUIARCH)" />
-        </UI>
+        <UI Id="WixUI_Minimal2_$(WIXUIARCH)" />
 
         <UIRef Id="WixUI_Minimal" />
     </Fragment>
@@ -58,8 +56,7 @@ Patch dialog sequence:
             <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2" Condition="Installed AND PATCH" />
 
             <InstallUISequence>
-                <Show Dialog="WelcomeDlg" Before="WelcomeDlg2" Condition="Installed AND PATCH" />
-                <Show Dialog="WelcomeDlg2" Before="ProgressDlg" Condition="NOT Installed" />
+                <Show Dialog="override WelcomeDlg" Before="WelcomeDlg2" Condition="Installed AND PATCH" />
             </InstallUISequence>
 
             <Property Id="ARPNOMODIFY" Value="1" />
